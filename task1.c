@@ -6,7 +6,7 @@
 typedef struct {
 	char date[11];
 	char time[6];
-	int steps;
+	char steps[];
 } FITNESS_DATA;
 
 // Define any additional variables here
@@ -43,20 +43,25 @@ void tokeniseRecord(const char *input, const char *delimiter,
 // Complete the main function
 int main() {
     FILE *file = fopen("FitnessData_2023.csv", "r");
-    if (file==NULL){
-        perror("");
+    if (file == NULL){
+        perror("File opening failure");
         return 1;
     }
-    char data_line[];
+    int data_size = 30;
+    char data_line[data_size];
     int line = 0;
-    while (fgets(data_line, sizeof(data_line), file) != NULL){
+    FITNESS_DATA onestep[3];
+
+    while (fgets(data_line, data_size, file) != NULL) {
         line++;
+        if (line <= 3) {
+            tokeniseRecord(data_line, ",", onestep[line].date, onestep[line].time, onestep[line].steps);
+            printf("%s/%s/%s\n", onestep[line].date, onestep[line].time, onestep[line].steps);
+        }
     }
-    printf("Number of records in file:%d\n", line);
-    while (fgets(data_line, sizeof(data_line), file) line<3){
-        
-    }
 
-
-
+    printf("Number of records in file: %d\n", line);
+    
+    fclose(file);
+    return 0;
 }
