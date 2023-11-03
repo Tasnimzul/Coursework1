@@ -46,20 +46,22 @@ int main() {
     if (file == NULL){
         perror("File opening failure");
         return 1;
+        // reference through module materials
     }
-    int data_size = 5000;
+    int data_size = 1000;
     char data_line[data_size];
-    FITNESS_DATA stepcount[5000];
+    FITNESS_DATA stepcount[1000];
+
     int line_count = 0;
 
     while(fgets(data_line, data_size, file)!= NULL){
-        char date[11];
-        char time[6];
-        char str_steps[15];
-        tokeniseRecord(data_line, ",", date, time, str_steps);
-        stepcount[line_count].steps = atoi(str_steps);
-        strcpy(stepcount[line_count].date, date);
-        strcpy(stepcount[line_count].time, time);
+        char date_token[11];
+        char time_token[6];
+        char str_steps_token[15];
+        tokeniseRecord(data_line, ",", date_token, time_token, str_steps_token);
+        stepcount[line_count].steps = atoi(str_steps_token);
+        strcpy(stepcount[line_count].date, date_token);
+        strcpy(stepcount[line_count].time, time_token);
 
         line_count++;
         }

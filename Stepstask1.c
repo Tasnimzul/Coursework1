@@ -47,9 +47,9 @@ int main() {
         perror("File opening failure");
         return 1;
     }
-    int data_size = 5000;
+    int data_size = 500;
     char data_line[data_size];
-    FITNESS_DATA stepcount[5000];
+    FITNESS_DATA stepcount[500];
 
     int line_count = 0;
 
