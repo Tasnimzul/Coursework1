@@ -1,9 +1,9 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
 
-#define buffer_size = 100;
+#ifndef FITNESS_DATA_STRUCT_H
+#define FITNESS_DATA_STRUCT_H
+
+#include <stdio.h>
+
 
 typedef struct {
 	char date[11];
@@ -13,12 +13,10 @@ typedef struct {
 
 void tokeniseRecord(const char *input, const char *delimiter,
                     char *date, char *time, char *steps) {
-
     char *inputCopy = strdup(input);
     
     char *token = strtok(inputCopy, delimiter);
-    if (token != NULL) {       
-        strcpy(date, token);
+    if (token != NULL) {        strcpy(date, token);
     }
     
     token = strtok(NULL, delimiter);
@@ -30,11 +28,13 @@ void tokeniseRecord(const char *input, const char *delimiter,
     if (token != NULL) {
         strcpy(steps, token);
     }
+    
     free(inputCopy);
 
-}
+     }
 
-FILE *open_file(char *filename, char *mode)
-{
-    // to do
-}
+
+
+void tokeniseRecord(const char *input, const char *delimiter, char *date, char *time, char *steps);
+
+#endif // FITNESS_DATA_STRUCT_H
