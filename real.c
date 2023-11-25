@@ -8,7 +8,7 @@ int main() {
 FILE *file = fopen("FitnessData_2023.csv", "r");
     
     char choice;
-    char filename[30];
+    char filename[100];
     int fewest;
     int largest;
     int sum = 0;
@@ -97,7 +97,7 @@ fclose(file);
 
     case 'E':
     case 'e':
-           for (int i = 0; i <= line_count; i++){
+           for (int i = 0; i < line_count; i++){
                sum += stepcount[i].steps;
            }
            printf("Mean step count: %d\n", sum/line_count);
