@@ -34,7 +34,6 @@ void tokeniseRecord(const char *input, const char *delimiter,
      }
 
 
-
 void tokeniseRecord(const char *input, const char *delimiter, char *date, char *time, char *steps);
 
 #endif // FITNESS_DATA_STRUCT_H

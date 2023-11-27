@@ -4,20 +4,21 @@
 #include "FitnessDataStruct.h"
 
 int main() {
-
-FILE *file = fopen("FitnessData_2023.csv", "r");
-    
     char choice;
     char filename[100];
     int fewest;
     int largest;
     int sum = 0;
-
+    int counter = 0;
+    int max_continuous = 0;
+    int start = 0;
     int data_size = 1000;
     char data_line[data_size];
     FITNESS_DATA stepcount[1000];
-
     int line_count = 0;
+
+FILE *file = fopen("FitnessData_2023.csv", "r");
+
      while(fgets(data_line, data_size, file)!= NULL){
         char date_token[11];
         char time_token[6];
@@ -32,6 +33,7 @@ FILE *file = fopen("FitnessData_2023.csv", "r");
 
 fclose(file);
 
+while (1){
 
     printf("A: Specify the filename to be imported\n");
     printf("B: Display the total number of records in the file\n");
@@ -50,13 +52,13 @@ fclose(file);
     case 'a':
            printf("Input filename:");
            scanf("%s", filename);
-           FILE *file = fopen(filename, "r");
+           file = fopen(filename, "r");
            if (file == NULL){
                 printf("Error: Could not find or open the file.\n");
-                return 1;
            }
            else {
                 printf("File successfully loaded.\n");
+                fclose(file);
            }
            break;
 
@@ -105,6 +107,20 @@ fclose(file);
 
     case 'F':
     case 'f':
+           for (int i = 0; i < line_count; i++){
+              if(stepcount[i].steps > 500){
+                     counter++;
+              }
+              else{
+                      if (counter > max_continuous){
+                             max_continuous = counter;
+                             start = i - counter;
+                     }
+               counter = 0;
+              }
+           }
+           printf("Longest period start: %s %s\n", stepcount[start].date, stepcount[start].time);
+           printf("Longest period end: %s %s\n", stepcount[start+max_continuous-1].date, stepcount[start+max_continuous-1].time);
            break;
 
     case 'Q':
@@ -114,8 +130,11 @@ fclose(file);
 
     default :
            printf("Invalid choice. Try again.\n");
-           return 0;
+           break;
 
+     }
 }
+return 0;
 }
+
   
