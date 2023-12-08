@@ -63,6 +63,7 @@ fclose(file);
 
 while (1){
 
+    printf("Menu Options:\n");
     printf("A: Specify the filename to be imported\n");
     printf("B: Display the total number of records in the file\n");
     printf("C: Find the date and time of the timeslot with the fewest steps\n");
