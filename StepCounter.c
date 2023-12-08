@@ -43,6 +43,9 @@ int main() {
     int line_count = 0;
 
 FILE *file = fopen("FitnessData_2023.csv", "r");
+if (file == NULL){
+     return 1;
+}
 
      while(fgets(data_line, data_size, file)!= NULL){
         char date_token[11];
@@ -90,7 +93,7 @@ while (1){
 
     case 'B':
     case 'b':
-           printf("Total records: %d\n", line_count);
+           printf("Total records:%d\n", line_count);
            break;
 
     case 'C':
@@ -103,7 +106,7 @@ while (1){
            }
            for (int i = 0; i < line_count; i++) {
            if (stepcount[i].steps == fewest) {
-                printf("Fewest Steps: %s %s\n", stepcount[i].date, stepcount[i].time);
+                printf("Fewest Steps:%s %s\n", stepcount[i].date, stepcount[i].time);
            }
            }
            break;
@@ -118,7 +121,7 @@ while (1){
            }
            for (int i = 0; i < line_count; i++) {
            if (stepcount[i].steps == largest) {
-                printf("Largest Steps: %s %s\n", stepcount[i].date, stepcount[i].time);
+                printf("Largest Steps:%s %s\n", stepcount[i].date, stepcount[i].time);
            }
            }
            break;
@@ -128,7 +131,7 @@ while (1){
            for (int i = 0; i < line_count; i++){
                sum += stepcount[i].steps;
            }
-           printf("Mean step count: %d\n", sum/line_count);
+           printf("Mean step count:%d\n", sum/line_count);
            break;
 
     case 'F':
@@ -145,8 +148,8 @@ while (1){
                counter = 0;
               }
            }
-           printf("Longest period start: %s %s\n", stepcount[start].date, stepcount[start].time);
-           printf("Longest period end: %s %s\n", stepcount[start+max_continuous-1].date, stepcount[start+max_continuous-1].time);
+           printf("Longest period start:%s %s\n", stepcount[start].date, stepcount[start].time);
+           printf("Longest period end:%s %s\n", stepcount[start+max_continuous-1].date, stepcount[start+max_continuous-1].time);
            break;
 
     case 'Q':
