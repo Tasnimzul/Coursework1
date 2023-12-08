@@ -3,38 +3,50 @@
 #include <string.h>
 #include "FitnessDataStruct.h"
 
+void tokeniseRecord(const char *input, const char *delimiter,
+                    char *date, char *time, char *steps) {
+    // Create a copy of the input string as strtok modifies the string
+    char *inputCopy = strdup(input);
+    
+    // Tokenize the copied string
+    char *token = strtok(inputCopy, delimiter);
+    if (token != NULL) {        strcpy(date, token);
+    }
+    
+    token = strtok(NULL, delimiter);
+    if (token != NULL) {
+        strcpy(time, token);
+    }
+    
+    token = strtok(NULL, delimiter);
+    if (token != NULL) {
+        strcpy(steps, token);
+    }
+    
+    // Free the duplicated string
+    free(inputCopy);
+
+ }
+
 int main() {
+    FILE *file;
     char choice;
-    char filename[100];
+    char filename[150];
     int fewest;
     int largest;
     int sum = 0;
     int counter = 0;
     int max_continuous = 0;
     int start = 0;
-    int data_size = 1000;
+    int data_size = 150;
     char data_line[data_size];
-    FITNESS_DATA stepcount[1000];
+    FITNESS_DATA stepcount[150];
     int line_count = 0;
 
-FILE *file = fopen("FitnessData_2023.csv", "r");
-
-     while(fgets(data_line, data_size, file)!= NULL){
-        char date_token[11];
-        char time_token[6];
-        char str_steps_token[15];
-        tokeniseRecord(data_line, ",", date_token, time_token, str_steps_token);
-        stepcount[line_count].steps = atoi(str_steps_token);
-        strcpy(stepcount[line_count].date, date_token);
-        strcpy(stepcount[line_count].time, time_token);
-
-        line_count++;
-        }
-
-fclose(file);
 
 while (1){
 
+    printf("Menu Options:\n");
     printf("A: Specify the filename to be imported\n");
     printf("B: Display the total number of records in the file\n");
     printf("C: Find the date and time of the timeslot with the fewest steps\n");
@@ -50,17 +62,30 @@ while (1){
     
     case 'A':
     case 'a':
-           printf("Input filename:");
+           printf("Input filename: ");
            scanf("%s", filename);
            file = fopen(filename, "r");
            if (file == NULL){
                 printf("Error: Could not find or open the file.\n");
-                return 0;
+                return 1;
            }
            else {
-                printf("File successfully loaded.\n");
+               printf("File successfully loaded.\n");
+
+               while(fgets(data_line, data_size, file)!= NULL){
+               char date_token[11];
+               char time_token[6];
+               char str_steps_token[15];
+               tokeniseRecord(data_line, ",", date_token, time_token, str_steps_token);
+               stepcount[line_count].steps = atoi(str_steps_token);
+               strcpy(stepcount[line_count].date, date_token);
+               strcpy(stepcount[line_count].time, time_token);
+
+               line_count++;
+               }
+               fclose(file);
            }
-           fclose(file);
+           getchar();
            break;
 
     case 'B':

@@ -29,6 +29,7 @@ void tokeniseRecord(const char *input, const char *delimiter,
  }
 
 int main() {
+    FILE *file;
     char choice;
     char filename[150];
     int fewest;
@@ -42,24 +43,6 @@ int main() {
     FITNESS_DATA stepcount[150];
     int line_count = 0;
 
-FILE *file = fopen("FitnessData_2023.csv", "r");
-if (file == NULL){
-     return 1;
-}
-
-     while(fgets(data_line, data_size, file)!= NULL){
-        char date_token[11];
-        char time_token[6];
-        char str_steps_token[15];
-        tokeniseRecord(data_line, ",", date_token, time_token, str_steps_token);
-        stepcount[line_count].steps = atoi(str_steps_token);
-        strcpy(stepcount[line_count].date, date_token);
-        strcpy(stepcount[line_count].time, time_token);
-
-        line_count++;
-        }
-
-fclose(file);
 
 while (1){
 
@@ -71,7 +54,7 @@ while (1){
     printf("E: Find the mean step count of all the records in the file\n");
     printf("F: Find the longest continuous period where the step count is above 500 steps\n");
     printf("Q: Quit\n");
-    printf("Enter choice:");
+    printf("Enter choice: ");
     choice = getchar();
     while (getchar() != '\n');
 
@@ -79,7 +62,7 @@ while (1){
     
     case 'A':
     case 'a':
-           printf("Input filename:");
+           printf("Input filename: ");
            scanf("%s", filename);
            file = fopen(filename, "r");
            if (file == NULL){
@@ -87,9 +70,22 @@ while (1){
                 return 1;
            }
            else {
-                printf("File successfully loaded.\n");
+               printf("File successfully loaded.\n");
+
+               while(fgets(data_line, data_size, file)!= NULL){
+               char date_token[11];
+               char time_token[6];
+               char str_steps_token[15];
+               tokeniseRecord(data_line, ",", date_token, time_token, str_steps_token);
+               stepcount[line_count].steps = atoi(str_steps_token);
+               strcpy(stepcount[line_count].date, date_token);
+               strcpy(stepcount[line_count].time, time_token);
+
+               line_count++;
+               }
+               fclose(file);
            }
-           fclose(file);
+           getchar();
            break;
 
     case 'B':
