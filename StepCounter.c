@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include "FitnessDataStruct.h"
 
 void tokeniseRecord(const char *input, const char *delimiter,
@@ -29,6 +30,7 @@ void tokeniseRecord(const char *input, const char *delimiter,
  }
 
 int main() {
+
     FILE *file;
     char choice;
     char filename[150];
@@ -97,14 +99,14 @@ while (1){
     case 'c':
            fewest = stepcount[0].steps;
            for (int i = 0; i < line_count; i++) {
-           if (stepcount[i].steps < fewest) {
+           if (stepcount[i].steps <= fewest) {
                 fewest = stepcount[i].steps;
            }
            }
-           printf("Fewest Steps:");
+           printf("Fewest Steps: ");
            for (int i = 0; i < line_count; i++) {
            if (stepcount[i].steps == fewest) {
-                printf(" %s %s\n", stepcount[i].date, stepcount[i].time);
+                printf("%s %s\n", stepcount[i].date, stepcount[i].time);
            }
            }
            break;
@@ -113,7 +115,7 @@ while (1){
     case 'd':
            largest = stepcount[0].steps;
            for (int i = 0; i < line_count; i++) {
-           if (stepcount[i].steps > largest) {
+           if (stepcount[i].steps >= largest) {
                 largest = stepcount[i].steps;
            }
            }
@@ -127,15 +129,15 @@ while (1){
 
     case 'E':
     case 'e':
-           for (int i = 0; i < line_count; i++){
+           for (int i = 0; i <= line_count; i++){
                sum += stepcount[i].steps;
            }
-           printf("Mean step count: %d\n", sum/line_count);
+           printf("Mean step count: %d\n", (int)round(sum/line_count));
            break;
 
     case 'F':
     case 'f':
-           for (int i = 0; i < line_count; i++){
+           for (int i = 0; i <= line_count; i++){
               if(stepcount[i].steps > 500){
                      counter++;
               }
