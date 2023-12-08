@@ -30,7 +30,7 @@ void tokeniseRecord(const char *input, const char *delimiter,
 
 int main() {
     char choice;
-    char filename[150]];
+    char filename[150];
     int fewest;
     int largest;
     int sum = 0;
