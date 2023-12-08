@@ -55,11 +55,12 @@ while (1){
            file = fopen(filename, "r");
            if (file == NULL){
                 printf("Error: Could not find or open the file.\n");
+                return 0;
            }
            else {
                 printf("File successfully loaded.\n");
-                fclose(file);
            }
+           fclose(file);
            break;
 
     case 'B':
