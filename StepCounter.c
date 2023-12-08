@@ -30,16 +30,16 @@ void tokeniseRecord(const char *input, const char *delimiter,
 
 int main() {
     char choice;
-    char filename[100];
+    char filename[150]];
     int fewest;
     int largest;
     int sum = 0;
     int counter = 0;
     int max_continuous = 0;
     int start = 0;
-    int data_size = 1000;
+    int data_size = 150;
     char data_line[data_size];
-    FITNESS_DATA stepcount[1000];
+    FITNESS_DATA stepcount[150];
     int line_count = 0;
 
 FILE *file = fopen("FitnessData_2023.csv", "r");
