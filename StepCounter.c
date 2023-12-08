@@ -101,9 +101,10 @@ while (1){
                 fewest = stepcount[i].steps;
            }
            }
+           printf("Fewest Steps:");
            for (int i = 0; i < line_count; i++) {
            if (stepcount[i].steps == fewest) {
-                printf("Fewest Steps: %s %s\n", stepcount[i].date, stepcount[i].time);
+                printf(" %s %s\n", stepcount[i].date, stepcount[i].time);
            }
            }
            break;
@@ -116,9 +117,10 @@ while (1){
                 largest = stepcount[i].steps;
            }
            }
+           printf("Largest Steps:");
            for (int i = 0; i < line_count; i++) {
            if (stepcount[i].steps == largest) {
-                printf("Largest Steps: %s %s\n", stepcount[i].date, stepcount[i].time);
+                printf(" %s %s\n", stepcount[i].date, stepcount[i].time);
            }
            }
            break;
