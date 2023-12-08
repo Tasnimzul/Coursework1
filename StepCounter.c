@@ -3,6 +3,31 @@
 #include <string.h>
 #include "FitnessDataStruct.h"
 
+void tokeniseRecord(const char *input, const char *delimiter,
+                    char *date, char *time, char *steps) {
+    // Create a copy of the input string as strtok modifies the string
+    char *inputCopy = strdup(input);
+    
+    // Tokenize the copied string
+    char *token = strtok(inputCopy, delimiter);
+    if (token != NULL) {        strcpy(date, token);
+    }
+    
+    token = strtok(NULL, delimiter);
+    if (token != NULL) {
+        strcpy(time, token);
+    }
+    
+    token = strtok(NULL, delimiter);
+    if (token != NULL) {
+        strcpy(steps, token);
+    }
+    
+    // Free the duplicated string
+    free(inputCopy);
+
+ }
+
 int main() {
     char choice;
     char filename[100];
@@ -42,7 +67,7 @@ while (1){
     printf("E: Find the mean step count of all the records in the file\n");
     printf("F: Find the longest continuous period where the step count is above 500 steps\n");
     printf("Q: Quit\n");
-    printf("Enter choice: ");
+    printf("Enter choice:");
     choice = getchar();
     while (getchar() != '\n');
 
@@ -55,7 +80,7 @@ while (1){
            file = fopen(filename, "r");
            if (file == NULL){
                 printf("Error: Could not find or open the file.\n");
-                return 0;
+                return 1;
            }
            else {
                 printf("File successfully loaded.\n");
