@@ -33,16 +33,16 @@ int main() {
 
     FILE *file;
     char choice;
-    char filename[150];
+    char filename[1500];
     int fewest;
     int largest;
     int sum = 0;
     int counter = 0;
     int max_continuous = 0;
     int start = 0;
-    int data_size = 150;
+    int data_size = 1500;
     char data_line[data_size];
-    FITNESS_DATA stepcount[150];
+    FITNESS_DATA stepcount[1500];
     int line_count = 0;
 
 

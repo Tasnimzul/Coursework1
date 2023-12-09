@@ -40,6 +40,11 @@ int main() {
     FitnessData stepcount[1000];
     int line_count = 0;
 
+    if (fgets(data_line, data_size, file)== NULL){
+        printf("Error: invalid file");
+        return 1;
+    }
+
     while(fgets(data_line, data_size, file)!= NULL){
         char date_token[11];
         char time_token[6];
