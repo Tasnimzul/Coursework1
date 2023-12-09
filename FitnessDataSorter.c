@@ -28,6 +28,7 @@ void tokeniseRecord(char *record, char delimiter, char *date, char *time, int *s
 int ordering(const void *x, const void *y){
     return(*((FitnessData *)y)).steps - (*((FitnessData *)x)).steps;
 }
+//https://www.youtube.com/watch?v=rHoOWG6Ihs4 used as a reference in using qsort
 
 
 
@@ -54,6 +55,10 @@ int main() {
         if (strlen(date_token) != 10||strlen(time_token) != 5|| steps_token < 0){
         printf("Error: invalid file\n");
         return 1;
+        }
+        else if (file == NULL){
+          printf("Error: invalid file\n");
+        return 1;  
         }
         strcpy(stepcount[line_count].date, date_token);
         strcpy(stepcount[line_count].time, time_token);
