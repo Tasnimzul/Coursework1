@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
 #include "FitnessDataStruct.h"
 
 void tokeniseRecord(const char *input, const char *delimiter,
@@ -36,7 +35,7 @@ int main() {
     char filename[1500];
     int fewest;
     int largest;
-    int sum = 0;
+    float sum = 0;
     int counter = 0;
     int max_continuous = 0;
     int start = 0;
@@ -44,6 +43,8 @@ int main() {
     char data_line[data_size];
     FITNESS_DATA stepcount[1500];
     int line_count = 0;
+    int i;
+    int index;
 
 
 while (1){
@@ -97,34 +98,28 @@ while (1){
 
     case 'C':
     case 'c':
+           index = 0;
            fewest = stepcount[0].steps;
            for (int i = 0; i < line_count; i++) {
            if (stepcount[i].steps < fewest) {
                 fewest = stepcount[i].steps;
+                index = i;
            }
            }
-           printf("Fewest Steps: ");
-           for (int i = 0; i < line_count; i++) {
-           if (stepcount[i].steps == fewest) {
-                printf("%s %s ", stepcount[i].date, stepcount[i].time);
-           }
-           }
+           printf("Fewest Steps: %s %s\n", stepcount[index].date, stepcount[index].time );
            break;
 
     case 'D':
     case 'd':
+           index = 0;
            largest = stepcount[0].steps;
            for (int i = 0; i < line_count; i++) {
            if (stepcount[i].steps >= largest) {
                 largest = stepcount[i].steps;
+                index = i;
            }
            }
-           printf("Largest Steps:");
-           for (int i = 0; i < line_count; i++) {
-           if (stepcount[i].steps == largest) {
-                printf(" %s %s\n", stepcount[i].date, stepcount[i].time);
-           }
-           }
+           printf("Largest Steps: %s %s\n", stepcount[index].date, stepcount[index].time);
            break;
 
     case 'E':
@@ -132,7 +127,7 @@ while (1){
            for (int i = 0; i < line_count; i++){
                sum += stepcount[i].steps;
            }
-           printf("Mean step count: %d\n", (int)round((double)sum/line_count));
+           printf("Mean step count: %.0f\n", sum/line_count);
            break;
 
     case 'F':
