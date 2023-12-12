@@ -44,7 +44,8 @@ int main() {
     FITNESS_DATA stepcount[1500];
     int line_count = 0;
     int i;
-    int index;
+    int fewest_index;
+    int largest_index;
 
 
 while (1){
@@ -98,28 +99,32 @@ while (1){
 
     case 'C':
     case 'c':
-           index = 0;
+           fewest_index = 0;
            fewest = stepcount[0].steps;
            for (int i = 0; i < line_count; i++) {
            if (stepcount[i].steps < fewest) {
                 fewest = stepcount[i].steps;
-                index = i;
+                fewest_index = i;
            }
            }
-           printf("Fewest Steps: %s %s\n", stepcount[index].date, stepcount[index].time );
+           
+           printf("Fewest steps: %s %s\n", stepcount[fewest_index].date, stepcount[fewest_index].time);
+          
            break;
 
     case 'D':
     case 'd':
-           index = 0;
+           largest_index = 0;
            largest = stepcount[0].steps;
            for (int i = 0; i < line_count; i++) {
            if (stepcount[i].steps >= largest) {
                 largest = stepcount[i].steps;
-                index = i;
+                largest_index = i;
            }
            }
-           printf("Largest Steps: %s %s\n", stepcount[index].date, stepcount[index].time);
+           
+           printf("Largest steps: %s %s\n", stepcount[largest_index].date, stepcount[largest_index].time);
+
            break;
 
     case 'E':
@@ -132,20 +137,21 @@ while (1){
 
     case 'F':
     case 'f':
+    // reference: https://stackoverflow.com/a/53197403
            for (int i = 0; i < line_count; i++){
               if(stepcount[i].steps > 500){
                      counter++;
+                     if (counter > max_continuous){
+                             max_continuous = counter - 1;
+                             start = i - counter + 1;
+              }
               }
               else{
-                      if (counter > max_continuous){
-                             max_continuous = counter;
-                             start = i - counter;
+              counter = 0;
                      }
-               counter = 0;
-              }
            }
            printf("Longest period start: %s %s\n", stepcount[start].date, stepcount[start].time);
-           printf("Longest period end: %s %s\n", stepcount[start+max_continuous-1].date, stepcount[start+max_continuous-1].time);
+           printf("Longest period end: %s %s\n", stepcount[start+max_continuous].date, stepcount[start+max_continuous].time);
            break;
 
     case 'Q':

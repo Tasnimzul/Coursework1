@@ -1,9 +1,34 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "FitnessDataStruct.h"
 
 
+typedef struct {
+    char date[11];
+    char time[6];
+    int steps;
+} FitnessData;
+
+
+void tokeniseRecord(char *record, char delimiter, char *date, char *time, int *steps) {
+    char *ptr = strtok(record, &delimiter);
+    if (ptr != NULL) {
+        strcpy(date, ptr);
+        ptr = strtok(NULL, &delimiter);
+    if (ptr != NULL) {
+        strcpy(time, ptr);
+        ptr = strtok(NULL, &delimiter);
+    if (ptr != NULL) {
+        *steps = atoi(ptr);
+            }
+        }
+    }
+}
+
+int ordering(const void *x, const void *y){
+    return(*((FitnessData *)y)).steps - (*((FitnessData *)x)).steps;
+}
+//https://www.youtube.com/watch?v=rHoOWG6Ihs4 used as a reference in using qsort
 
 int main() {
     char filename[1000];
@@ -25,7 +50,7 @@ int main() {
         char time_token[6];
         int steps_token;
         tokeniseRecord(data_line, ',', date_token, time_token, &steps_token);
-        if (strlen(date_token) != 10||strlen(time_token) != 5|| steps_token < 0){
+        if (date_token == NULL||time_token == NULL|| steps_token < 0 || steps_token == NULL){
         printf("Error: invalid file\n");
         return 1;
         }
