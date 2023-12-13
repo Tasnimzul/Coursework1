@@ -46,6 +46,7 @@ int main() {
         char date_token[11];
         char time_token[6];
         int steps_token;
+        //reference using sscanf: https://copyprogramming.com/howto/how-to-extract-fields-in-comma-separated-string-using-sscanf-and-scanset-when-some-fields-blank
         int num = sscanf(data_line, "%10[^,],%5[^,],%d", date_token, time_token, &steps_token);
         if (num != 3){
         printf("Error: invalid file\n");
@@ -64,12 +65,13 @@ int main() {
         }
     fclose(file);
 
+    //using bubble sort to sort stepcount in descending order
     for (int i =0; i < line_count; i++){
         for (int j= 0; j < line_count - i - 1; j++){
             if (stepcount[j].steps < stepcount[j+1].steps){
-                FitnessData temp = stepcount[j];
+                FitnessData order = stepcount[j];
                 stepcount[j] = stepcount[j+1];
-                stepcount[j+1] = temp;
+                stepcount[j+1] = order;
             }
         }
     }
